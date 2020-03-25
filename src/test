@@ -1,0 +1,66 @@
+import math
+
+#image = [0, 1, 2, 2, 2, 2, 2, 2, 3, 4]
+image = [[0, 1, 2, 2, 2],
+         [2, 2, 2, 3, 4]]
+
+rows = len(image)
+cols = len(image[0])
+
+# (f(i-1) + f(i) / 2) * (256 / imageSize)
+h = [0] * 8   # using 8 for example, should be 256 in real program
+# print(f)
+# loop through image array and count occurrences of each value in range [0-8]
+for i in range(0, rows):
+    for j in range(0, cols):
+        h[image[i][j]] += 1
+
+
+print("h:", h)
+
+f = [0] * 8
+for i in range(0,8):
+    if i == 0:
+        f[i] = h[i]
+    else:
+        f[i] = f[i-1] + h[i]
+
+print("f:", f)
+newImage = [0] * 8
+
+imageSize = rows * cols
+def transform(i):
+    if i > 7:
+        newVal = math.floor((((f[-1] + f[-1]) / 2) * (8 / imageSize)))
+    elif i == 0:
+        newVal = math.floor((((f[i]) / 2) * (8 / imageSize)))
+    else:
+        newVal = math.floor((((f[i - 1] + f[i]) / 2) * (8 / imageSize)))
+
+    if newVal == 8:
+        newVal = 7
+    return newVal
+
+for i in range(0,8):
+    newImage[i] = transform(i)
+
+#for i in range(0,8):
+ #   image[i] = newImage[image[i]]
+
+
+
+for i in range(0, rows):
+    for j in range(0, cols):
+        image[i][j] = transform(image[i][j])
+
+'''
+if len(image) > 8:
+    for i in range(8, len(image)):
+        image[i] = transform(image[i])
+'''
+
+print("newImage:", newImage)
+print("image:", image)
+
+
+
