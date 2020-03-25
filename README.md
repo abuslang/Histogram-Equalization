@@ -10,6 +10,7 @@ Each program implements either linear scaling ir histogram equalization over the
 xyz_classhisteq and Luv_classhisteq both implement an algorithm for histogram equalization taught the Introduction to Computer vision course.
 
 Original Image used for testing
+
 ![](res/fruit.jpg)
 
 Output images can be located in the res folder
